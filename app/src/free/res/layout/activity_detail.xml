@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true" tools:context="test.rahul.movies.movies.DetailActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:fitsSystemWindows="true"
+        android:layout_height="192dp"
+        android:layout_width="match_parent">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent" android:id="@+id/CollapsingToolbarLayout"
+            android:layout_height="match_parent"
+            app:toolbarId="@+id/toolbar1"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
+            app:contentScrim="?attr/colorPrimary">
+
+            <ImageView android:transitionName="@string/SharedAnimation"
+                android:id="@+id/ivParallax"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@android:drawable/sym_def_app_icon"
+                android:scaleType="centerCrop" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar1" app:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light"
+                android:layout_width="match_parent" app:layout_collapseMode="pin"
+                android:layout_height="?attr/actionBarSize"
+
+
+               ></android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+        android:id="@+id/nestedScrollView">
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                >
+
+
+
+                <LinearLayout android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout android:layout_weight="1" android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+<LinearLayout android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="horizontal">
+
+
+
+
+    <TextView  android:layout_gravity="center" android:textSize="18sp" android:layout_weight="0.2" android:id="@+id/movie_rating"
+        android:layout_width="wrap_content" android:text="Rating"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp" android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
+</LinearLayout>
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_weight="1" android:padding="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView android:gravity="center" android:layout_gravity="center" android:textSize="18sp"
+                            android:layout_width="match_parent" android:text="Votes"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <TextView android:id="@+id/Description"
+                        android:layout_width="match_parent" android:textSize="18sp"
+                        android:layout_height="wrap_content" android:text="Description" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent" android:padding="10dp"
+                    android:orientation="horizontal" android:weightSum="2"
+                    android:layout_height="wrap_content">
+                    <TextView android:layout_weight="1"
+                        android:layout_width="0dp" android:textSize="18sp" android:text="orignal_title"
+                        android:layout_height="wrap_content" />
+                    <TextView android:layout_weight="1" android:id="@+id/movie_orignal_title"
+                        android:layout_width="0dp" android:textSize="18sp" android:text="orignal_title"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent" android:padding="10dp"
+                    android:orientation="horizontal" android:weightSum="2"
+                    android:layout_height="wrap_content">
+                    <TextView android:layout_weight="1"
+                        android:layout_width="0dp" android:textSize="18sp" android:text="adult"
+                        android:layout_height="wrap_content" />
+                    <TextView android:layout_weight="1" android:id="@+id/movie_adult"
+                        android:layout_width="0dp" android:textSize="18sp" android:text="adult"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent" android:padding="10dp"
+                    android:orientation="horizontal" android:weightSum="2"
+                    android:layout_height="wrap_content">
+                    <TextView android:layout_weight="1"
+                        android:layout_width="0dp" android:textSize="18sp" android:text="release_date"
+                        android:layout_height="wrap_content" />
+                    <TextView android:layout_weight="1" android:id="@+id/movie_release_Date"
+                        android:layout_width="0dp" android:textSize="18sp" android:text="release_Date"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent" android:orientation="horizontal"
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|left"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/nestedScrollView"
+        app:layout_anchorGravity="top|right"
+        app:srcCompat="@android:drawable/ic_menu_save" />
+</android.support.design.widget.CoordinatorLayout>
