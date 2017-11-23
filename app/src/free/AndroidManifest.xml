@@ -17,6 +17,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailActivity"></activity>
+
+        <provider
+            android:name=".MyContentProvider"
+            android:authorities="test.rahul.movies.movies.MyContentProvider"
+            android:enabled="true"
+            android:exported="true"></provider>
+
     </application>
 
 </manifest>

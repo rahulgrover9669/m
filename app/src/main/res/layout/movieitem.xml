@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"  android:layout_column="2"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_column="2"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,11 +15,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView android:transitionName="@string/SharedAnimation"
+            <ImageView
                 android:id="@+id/networkImageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true" />
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/posterImage" />
         </LinearLayout>
 
         <LinearLayout
@@ -25,13 +28,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView android:id="@+id/movieName" android:textStyle="bold"
-                android:layout_width="wrap_content" android:fontFamily="monospace"
+            <TextView
+                android:id="@+id/movieName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="5dp"
-                android:text="MovieName" />
+                android:fontFamily="monospace"
+                android:text="MovieName"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -44,21 +50,22 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/Rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="5dp"
-                    android:text="Rating"
-                    android:id="@+id/Rating" />
+                    android:text="Rating" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@android:drawable/star_on"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="14dp"
                     android:layout_toEndOf="@+id/Rating"
-                    android:layout_marginStart="14dp" />
+                    android:contentDescription="@string/posterImage"
+                    android:src="@android:drawable/star_on" />
             </RelativeLayout>
         </LinearLayout>
 

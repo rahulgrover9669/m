@@ -2,7 +2,19 @@
     <string name="app_name">Movies</string>
     <string name="sharedAnimn">Movies</string>
     <string name="SharedAnimation">sharedelement</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 
-
+    <string name="internetConnectionMessage">check internet connection!</string>
+    <string name="votes">votes</string>
+    <string name="posterImage">posterImage</string>
+    <string name="favtMovie">favtMovie</string>
+    <string name="fabButton">fabButton</string>
+    <string name="startImage">starImage</string>
+    <string name="rating">rating</string>
+    <string name="Description">Description</string>
+    <string name="orignalTitle">orignalTitle</string>
+    <string name="favourite">favourite  movies</string>
 
 </resources>

@@ -1,16 +1,20 @@
 package test.rahul.movies.movies;
 
 import android.app.AlarmManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,13 +25,8 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -36,38 +35,67 @@ import java.util.TimerTask;
 public class DetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView imageView;
-    JSONObject jsonObject;
+    FloatingActionButton floatingActionButton;
     String title;
-    JSONArray jsonArray;
-    TextView description,movie_Rating,movie_Adult,movie_release_Date,movie_orignal_Title;
-    Palette palette;
-    ImageLoader imageLoader;
+
+    TextView description, movie_Rating, movie_Adult, movie_release_Date, movie_orignal_Title;
+
+
     int titleCOlor;
     CollapsingToolbarLayout collapsingToolbarLayout;
-    Boolean alaramSet;
+
     AlarmManager alarmManager;
     Timer timer;
     TimerTask timerTask;
-    AdView adView;
-    AdRequest adRequest;
-    InterstitialAd interstitialAd;
+    String isFavt, isVisible, movie_title, release_date, votes, Description, photo_path, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-       toolbar = (Toolbar)findViewById(R.id.toolbar1);
-       imageView = (ImageView)findViewById(R.id.ivParallax);
-        String MovieDetail = getIntent().getStringExtra("MovieDatail");
-        description = (TextView)findViewById(R.id.Description);
-        movie_Rating = (TextView)findViewById(R.id.movie_rating);
-        movie_Adult = (TextView)findViewById(R.id.movie_adult);
-        movie_release_Date = (TextView)findViewById(R.id.movie_release_Date);
-        movie_orignal_Title = (TextView)findViewById(R.id.movie_orignal_title);
-        collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.CollapsingToolbarLayout);
-        alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-       setSupportActionBar(toolbar);
-        MyContentProvider myContentProvider = new MyContentProvider();
+        toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        imageView = (ImageView) findViewById(R.id.ivParallax);
+        movie_title = getIntent().getStringExtra("title");
+        release_date = getIntent().getStringExtra("release_date");
+        votes = getIntent().getStringExtra("votes");
+        Description = getIntent().getStringExtra("description");
+        photo_path = getIntent().getStringExtra("photo_path");
+        isFavt = getIntent().getStringExtra("is_favt");
+        isVisible = getIntent().getStringExtra("is_visible");
+        id = getIntent().getStringExtra("id");
+        description = (TextView) findViewById(R.id.Description);
+        movie_Rating = (TextView) findViewById(R.id.movie_rating);
+        movie_Adult = (TextView) findViewById(R.id.movie_adult);
+        movie_release_Date = (TextView) findViewById(R.id.movie_release_Date);
+        movie_orignal_Title = (TextView) findViewById(R.id.movie_orignal_title);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.CollapsingToolbarLayout);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        setSupportActionBar(toolbar);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton2);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (isFavt.equals("1")) {
+
+
+                        isFavt = "0";
+                        Toast.makeText(getApplicationContext(), "Removed From favt", Toast.LENGTH_SHORT).show();
+                    } else {
+                        isFavt = "1";
+                        Toast.makeText(getApplicationContext(), "Added to favt", Toast.LENGTH_SHORT).show();
+                    }
+                    Uri uri = Uri.withAppendedPath(MyContentProvider.CONTENT_URI, "update/" + id);
+                    // uri.withAppendedPath(uri, id);
+
+                    String[] args = new String[]{id, isFavt};
+                    Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, null, args, null);
+                    Toast.makeText(getBaseContext(), String.valueOf(cursor.getCount()), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Log.d("TAG", "ONCLICKERROR" + e.getMessage());
+                }
+            }
+        });
 
         final InterstitialAd intAd = new InterstitialAd(this);
         // set the adUnitId (defined in values/strings.xml)
@@ -77,14 +105,14 @@ public class DetailActivity extends AppCompatActivity {
         intAd.loadAd(adRequest1);
         intAd.setAdListener(new AdListener() {
             public void onAdLoaded() {
-                if(intAd.isLoaded()){
+                if (intAd.isLoaded()) {
                     intAd.show();
                 }
             }
         });
         toolbar.setTitleTextColor(Color.RED);
-        try{
-            if(timer == null){
+        try {
+            if (timer == null) {
                 timer = new Timer();
                 timerTask = new TimerTask() {
                     @Override
@@ -99,74 +127,31 @@ public class DetailActivity extends AppCompatActivity {
                 };
 
             }
-            try{
-                Calendar calendar =  Calendar.getInstance();
-                calendar.set(Calendar.SECOND , 10);
-                timer.schedule(timerTask,1000*30,1000*30);
-            }
-            catch (Exception e){
-                Log.d("SCHEDULE","SCHEDULE"+e.getMessage());
-            }
-
-
-        }
-        catch (Exception e){
-            Log.d("TIMER","TIMER"+e.getMessage());
-        }
-      //  getSupportActionBar().setDisplayShowHomeEnabled(true);
-       // getSupportActionBar().setHomeButtonEnabled(true);
-       // getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        if (MovieDetail!=null){
-            Toast.makeText(this,MovieDetail,Toast.LENGTH_SHORT).show();
             try {
-                jsonObject = new JSONObject(MovieDetail);
-                if(jsonObject.getString("overview").equals("null")){
-
-                }
-                else {
-                    description.setText(jsonObject.getString("overview"));
-                }
-                if(jsonObject.getString("vote_average").equals("null")){
-
-                }
-                else {
-                    movie_Rating.setText(jsonObject.getString("vote_average"));
-                }
-                if(jsonObject.getString("adult").equals("null")){
-
-                }
-                else {
-                    if(jsonObject.getString("adult").equals("false") || jsonObject.getString("adult").toString() == "false" ){
-                        movie_Adult.setText("No");
-                    }
-                    else {
-                        movie_Adult.setText("Yes");
-                    }
-                   // movie_Adult.setText(jsonObject.getString("adult"));
-                }
-                if(jsonObject.getString("release_date").equals("null")){
-
-                }
-                else {
-                    movie_release_Date.setText(jsonObject.getString("release_date"));
-                }
-                if (jsonObject.getString("original_title").equals("null")){
-
-                }
-                else {
-                        title = jsonObject.getString("original_title");
-                    movie_orignal_Title.setText(jsonObject.getString("original_title"));
-                    getSupportActionBar().setTitle(title);
-                }
-                Picasso.with(this).load("https://image.tmdb.org/t/p/w500/"+ jsonObject.getString("poster_path")).into(imageView);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.SECOND, 10);
+                timer.schedule(timerTask, 1000 * 30, 1000 * 30);
+            } catch (Exception e) {
+                Log.d("SCHEDULE", "SCHEDULE" + e.getMessage());
             }
 
+
+        } catch (Exception e) {
+            Log.d("TIMER", "TIMER" + e.getMessage());
         }
+        //  getSupportActionBar().setDisplayShowHomeEnabled(true);
+        // getSupportActionBar().setHomeButtonEnabled(true);
+        // getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        if (movie_title != null & release_date != null & votes != null & Description != null & photo_path != null & id != null & isVisible != null & isFavt != null) {
 
+            description.setText(Description);
+            movie_Rating.setText(votes);
+            movie_release_Date.setText(release_date);
+            movie_orignal_Title.setText(movie_title);
+            getSupportActionBar().setTitle(movie_title);
+            Picasso.with(this).load("https://image.tmdb.org/t/p/w500/" + photo_path).into(imageView);
 
+        }
 
 
         try {
@@ -182,12 +167,12 @@ public class DetailActivity extends AppCompatActivity {
 
                 }
             };
-            ImageLoader imageLoader = new ImageLoader(requestQueue,imageCache);
-            imageLoader.get("https://image.tmdb.org/t/p/w500/"+jsonObject.getString("poster_path"), new ImageLoader.ImageListener() {
+            ImageLoader imageLoader = new ImageLoader(requestQueue, imageCache);
+            imageLoader.get("https://image.tmdb.org/t/p/w500/" + photo_path, new ImageLoader.ImageListener() {
                 @Override
                 public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                    Bitmap bitmap =  response.getBitmap();
-                    if(bitmap!=null){
+                    Bitmap bitmap = response.getBitmap();
+                    if (bitmap != null) {
                         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                             @Override
                             public void onGenerated(Palette palette) {
@@ -205,11 +190,8 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         });
 
-                        Log.d("IMAGELOADER","IMAGELOADER"+String.valueOf(titleCOlor));
-                       // getSupportActionBar().setTitle("RAHUL");
-
-
-
+                        Log.d("IMAGELOADER", "IMAGELOADER" + String.valueOf(titleCOlor));
+                        // getSupportActionBar().setTitle("RAHUL");
 
 
                     }
@@ -222,28 +204,32 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
 
+        } catch (Exception e) {
+            Log.e("EXP", "EXPEXP" + e.getMessage());
+            Log.d("EXP", "EXPEXP" + e.getMessage());
         }
-        catch (Exception e){
-            Log.e("EXP","EXPEXP"+e.getMessage());
-            Log.d("EXP","EXPEXP"+e.getMessage());
-        }
-
 
 
     }
 
-   public void DisplayAD(){
-       try {
-           Toast.makeText(getApplicationContext(), "TOAST", Toast.LENGTH_SHORT).show();
-       }
-       catch (Exception e){
-           Log.d("TOAST","TOAST!"+e.getMessage());
-       }
-   }
+    public void DisplayAD() {
+        try {
+            Toast.makeText(getApplicationContext(), "TOAST", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.d("TOAST", "TOAST!" + e.getMessage());
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home: onBackPressed(); return  true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.menu2: {
+                Toast.makeText(getBaseContext(), "REFRESH", Toast.LENGTH_SHORT).show();
+                return true;
+            }
         }
         return true;
     }
@@ -261,8 +247,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onBackPressed();
         CancelTimer();
     }
-    public void CancelTimer(){
-        if(timer!=null){
+
+    public void CancelTimer() {
+        if (timer != null) {
             timer.cancel();
             timer = null;
         }
