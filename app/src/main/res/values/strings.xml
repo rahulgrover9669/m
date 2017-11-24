@@ -16,5 +16,10 @@
     <string name="Description">Description</string>
     <string name="orignalTitle">orignalTitle</string>
     <string name="favourite">favourite  movies</string>
+    <string name="addFavoirite">Added to favt</string>
+    <string name="removeFavoirite">Removed From favt</string>
+    <string name="adult">adult</string>
+    <string name="releaseDate">Release Date</string>
+
 
 </resources>

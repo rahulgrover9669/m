@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     String title;
 
-    TextView description, movie_Rating, movie_Adult, movie_release_Date, movie_orignal_Title;
+    TextView description, movieRating, movieAdult, movieReleaseDate, movieOrignalTitle;
 
 
     int titleCOlor;
@@ -47,7 +47,7 @@ public class DetailActivity extends AppCompatActivity {
     AlarmManager alarmManager;
     Timer timer;
     TimerTask timerTask;
-    String isFavt, isVisible, movie_title, release_date, votes, Description, photo_path, id;
+    String isFavt, isVisible, movieTitle, release_date, votes, Description, photo_path, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         imageView = (ImageView) findViewById(R.id.ivParallax);
-        movie_title = getIntent().getStringExtra("title");
+        movieTitle = getIntent().getStringExtra("title");
         release_date = getIntent().getStringExtra("release_date");
         votes = getIntent().getStringExtra("votes");
         Description = getIntent().getStringExtra("description");
@@ -64,10 +64,10 @@ public class DetailActivity extends AppCompatActivity {
         isVisible = getIntent().getStringExtra("is_visible");
         id = getIntent().getStringExtra("id");
         description = (TextView) findViewById(R.id.Description);
-        movie_Rating = (TextView) findViewById(R.id.movie_rating);
-        movie_Adult = (TextView) findViewById(R.id.movie_adult);
-        movie_release_Date = (TextView) findViewById(R.id.movie_release_Date);
-        movie_orignal_Title = (TextView) findViewById(R.id.movie_orignal_title);
+        movieRating = (TextView) findViewById(R.id.movie_rating);
+        movieAdult = (TextView) findViewById(R.id.movie_adult);
+        movieReleaseDate = (TextView) findViewById(R.id.movie_release_Date);
+        movieOrignalTitle = (TextView) findViewById(R.id.movie_orignal_title);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.CollapsingToolbarLayout);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         setSupportActionBar(toolbar);
@@ -142,13 +142,13 @@ public class DetailActivity extends AppCompatActivity {
         //  getSupportActionBar().setDisplayShowHomeEnabled(true);
         // getSupportActionBar().setHomeButtonEnabled(true);
         // getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        if (movie_title != null & release_date != null & votes != null & Description != null & photo_path != null & id != null & isVisible != null & isFavt != null) {
+        if (movieTitle != null & release_date != null & votes != null & Description != null & photo_path != null & id != null & isVisible != null & isFavt != null) {
 
             description.setText(Description);
-            movie_Rating.setText(votes);
-            movie_release_Date.setText(release_date);
-            movie_orignal_Title.setText(movie_title);
-            getSupportActionBar().setTitle(movie_title);
+            movieRating.setText(votes);
+            movieReleaseDate.setText(release_date);
+            movieOrignalTitle.setText(movieTitle);
+            getSupportActionBar().setTitle(movieTitle);
             Picasso.with(this).load("https://image.tmdb.org/t/p/w500/" + photo_path).into(imageView);
 
         }

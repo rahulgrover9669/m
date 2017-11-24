@@ -38,7 +38,7 @@
                 app:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light"
 
 
-               ></android.support.v7.widget.Toolbar>
+                ></android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -49,158 +49,161 @@
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-
-                >
-
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="10dp">
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-
-
-                            <TextView
-                                android:id="@+id/movie_rating"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="0.2"
-                                android:text="@string/rating"
-                                android:textSize="18sp" />
-
-                            <ImageView
-                                android:id="@+id/imageView"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-        android:layout_weight="0.5"
-                                android:contentDescription="@string/favtMovie"
-        app:srcCompat="@android:drawable/btn_star_big_off" />
-</LinearLayout>
-
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="10dp">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:id="@+id/movie_rating"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/votes"
+                            android:layout_weight="0.2"
+                            android:text="@string/rating"
                             android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0.5"
+                            android:contentDescription="@string/favtMovie"
+                            app:srcCompat="@android:drawable/btn_star_big_off" />
                     </LinearLayout>
+
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
                     android:padding="10dp">
-                    <TextView android:id="@+id/Description"
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/Description"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/votes"
                         android:textSize="18sp" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/orignalTitle"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/movie_orignal_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="orignal_title"
-                        android:textSize="18sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="adult"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/movie_adult"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="adult"
-                        android:textSize="18sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="release_date"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/movie_release_Date"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="release_Date"
-                        android:textSize="18sp" />
-                </LinearLayout>
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/Description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Description"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/orignalTitle"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/movie_orignal_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/orignalTitle"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/adult"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/movie_adult"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/adult"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/releaseDate"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/movie_release_Date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/releaseDate"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

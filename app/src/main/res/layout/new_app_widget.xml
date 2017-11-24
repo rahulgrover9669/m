@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/common_full_open_on_phone" />
+        android:src="@drawable/example_appwidget_preview" />
 
 </RelativeLayout>

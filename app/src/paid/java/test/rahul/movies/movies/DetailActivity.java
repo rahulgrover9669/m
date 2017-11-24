@@ -1,16 +1,19 @@
 package test.rahul.movies.movies;
 
-import android.app.AlarmManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,24 +24,14 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class DetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView imageView;
-
-    String title;
-
+    FloatingActionButton floatingActionButton;
     TextView description, movieRating, movieAdult, movieReleaseDate, movieOrignalTitle;
-
-
     int titleCOlor;
     CollapsingToolbarLayout collapsingToolbarLayout;
-
-    AlarmManager alarmManager;
-    Timer timer;
-    TimerTask timerTask;
+    String isFavt, isVisible, movie_title, release_date, votes, Description, photo_path, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,25 +39,50 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         imageView = (ImageView) findViewById(R.id.ivParallax);
-        String movie_title = getIntent().getStringExtra("title");
-        String release_date = getIntent().getStringExtra("release_date");
-        String votes = getIntent().getStringExtra("votes");
-        String Description = getIntent().getStringExtra("description");
-        String photo_path = getIntent().getStringExtra("photo_path");
-        String id = getIntent().getStringExtra("id");
+        movie_title = getIntent().getStringExtra("title");
+        release_date = getIntent().getStringExtra("release_date");
+        votes = getIntent().getStringExtra("votes");
+        Description = getIntent().getStringExtra("description");
+        photo_path = getIntent().getStringExtra("photo_path");
+        isFavt = getIntent().getStringExtra("is_favt");
+        isVisible = getIntent().getStringExtra("is_visible");
+        id = getIntent().getStringExtra("id");
         description = (TextView) findViewById(R.id.Description);
         movieRating = (TextView) findViewById(R.id.movie_rating);
         movieAdult = (TextView) findViewById(R.id.movie_adult);
         movieReleaseDate = (TextView) findViewById(R.id.movie_release_Date);
         movieOrignalTitle = (TextView) findViewById(R.id.movie_orignal_title);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.CollapsingToolbarLayout);
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
         setSupportActionBar(toolbar);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton2);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (isFavt.equals("1")) {
+                        isFavt = "0";
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.removeFavoirite), Toast.LENGTH_SHORT).show();
+                    } else {
+                        isFavt = "1";
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.addFavoirite), Toast.LENGTH_SHORT).show();
+                    }
+                    Uri uri = Uri.withAppendedPath(MyContentProvider.CONTENT_URI, "update/" + id);
+                    // uri.withAppendedPath(uri, id);
+
+                    String[] args = new String[]{id, isFavt};
+                    Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, null, args, null);
+                    Toast.makeText(getBaseContext(), String.valueOf(cursor.getCount()), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Log.d("TAG", "ONCLICKERROR" + e.getMessage());
+                }
+            }
+        });
+
 
         toolbar.setTitleTextColor(Color.RED);
 
-
-        if (movie_title != null & release_date != null & votes != null & Description != null & photo_path != null & id != null) {
+        if (movie_title != null & release_date != null & votes != null & Description != null & photo_path != null & id != null & isVisible != null & isFavt != null) {
 
             description.setText(Description);
             movieRating.setText(votes);
@@ -135,13 +153,16 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.menu2: {
+                Toast.makeText(getBaseContext(), "REFRESH", Toast.LENGTH_SHORT).show();
+                return true;
+            }
         }
         return true;
     }
@@ -157,19 +178,13 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        CancelTimer();
+
     }
 
-    public void CancelTimer() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-    }
 
     @Override
     protected void onStop() {
         super.onStop();
-        CancelTimer();
+
     }
 }
